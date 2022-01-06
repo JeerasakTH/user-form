@@ -9,7 +9,7 @@ const ReadOnly = ({ info, handleEditClick, handleDeleteClick }) => {
             <td>
             <div className='bt-inner bt-read'>
                 <button type="button" onClick={(e) => handleEditClick(e, info)}>Edit</button>
-                <button type="button" onClick={(id) => handleDeleteClick(info.id)}>Delete</button>
+                <button type="button" onClick={() => handleDeleteClick(info.id)}>Delete</button>
             </div>
             </td>
         </tr>

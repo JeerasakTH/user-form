@@ -20,7 +20,7 @@ const EditableRow = ({ selectAge, editInformation, handleEditChange, handleCance
                     value={editInformation.age} 
                     onChange={handleEditChange} 
                     required>
-                    <option value="">Choose</option>
+                    <option value="">Age</option>
                         {selectAge().map((age) => (
                             <option value={age}>{age}</option>
                             ))}

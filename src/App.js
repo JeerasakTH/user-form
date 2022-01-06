@@ -26,8 +26,10 @@ function App() {
     nickname: "",
   });
 
+  // check edit
   const [editInfoId, setEditInfoId] = useState(null);
 
+  // getItem from storage
   useEffect(() => {
     const temp = localStorage.getItem('informations')
     const loadedInfos = JSON.parse(temp)
@@ -39,6 +41,7 @@ function App() {
     }
   }, [])
 
+  // mount to storage
   useEffect(() => {
     const temp = JSON.stringify(informations)
     localStorage.setItem('informations', temp)
@@ -51,45 +54,47 @@ function App() {
     })
  }
 
+  // submit info
   const handleAddFormSubmit = e => {
     e.preventDefault();
 
-    const newInfo = {
+    setInformations((prev) => [ ...prev, {
       id: new Date().getTime(),
       name: addInformation.name,
       age: addInformation.age,
       nickname: addInformation.nickname,
-    };
-
-    const newInfos = [ ...informations, newInfo];
-    setInformations(newInfos);
+    }]);
 
     e.target.reset();
   }
 
+  // click to edit
   const handleEditClick = (e, info) => {
     e.preventDefault();
     setEditInfoId(info.id);
-
-    const infoValues = {
+    
+    // get old state
+    setEditInformation({
       name: info.name,
       age: info.age,
       nickname: info.nickname,
-    }
-
-    setEditInformation(infoValues)
+    })
   }
 
+  // change state in edit
   const handleEditChange = e => {
     setEditInformation( prevInfo => {
       return { ...prevInfo,[e.target.name]: e.target.value}
     }) 
   }
 
+  // click to save
   const handleEditSave = e => {
     e.preventDefault();
 
+    // new state
     const editedInfo = {
+      id: editInfoId,
       name: editInformation.name,
       age: editInformation.age,
       nickname: editInformation.nickname,
@@ -97,26 +102,26 @@ function App() {
 
     const newInfos = [ ...informations ];
 
+    // [ /{id:1}, x{id:2}, x{id:3} ] clicked id
     const index = informations.findIndex((info) => info.id === editInfoId);
 
     newInfos[index] = editedInfo;
-
+    
+    // save new state to state
     setInformations(newInfos);
     setEditInfoId(null);
   };
 
+  // show ReadOnly
   const handleCancelClick = () => {
     setEditInfoId(null);
   }
 
+  // click to delete
   const handleDeleteClick = (infoId) => {
-    const newInfo = [ ...informations ]
-
-    const index = informations.findIndex((info) => info.id === infoId);
-
-    newInfo.splice(index, 1);
-
-    setInformations(newInfo);
+    
+    // info.id !== clicked id
+    setInformations((info) => info.filter(i => i.id !== infoId));
   }
 
   // create select age 1-100
@@ -169,7 +174,7 @@ function App() {
             onChange={handleChange}
             />
           <select name="age" id="age-select" onChange={handleChange} required>
-            <option value="">Choose</option>
+            <option value="">Age</option>
             {selectAge().map((age) => (
               <option value={age}>{age}</option>
               ))}
