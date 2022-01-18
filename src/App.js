@@ -144,8 +144,8 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {informations.map((info) => (
-              <Fragment>
+            {informations.map((info, index) => (
+              <Fragment key={index}>
                 {editInfoId === info.id ? (
                 <EditableRow 
                   handleChange={handleChange} 
@@ -175,8 +175,8 @@ function App() {
             />
           <select name="age" id="age-select" onChange={handleChange} required>
             <option value="">Age</option>
-            {selectAge().map((age) => (
-              <option value={age}>{age}</option>
+            {selectAge().map((age, index) => (
+              <option value={age} key={index}>{age}</option>
               ))}
           </select>
           <input 
