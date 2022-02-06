@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import './App.css';
+// import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import EditableRow from './components/EditableRow';
 import ReadOnly from './components/ReadOnly';
 
@@ -132,15 +134,15 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App w-75 my-5 mx-auto">
       <form onSubmit={handleEditSave}>
-        <table>
+        <table className='table shadow mb-5'>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Age</th>
-              <th>Nickname</th>
-              <th>Action</th>
+              <th scope='col'>Name</th>
+              <th scope='col'>Age</th>
+              <th scope='col'>Nickname</th>
+              <th scope='col'>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -165,32 +167,34 @@ function App() {
         </table>
       </form>
       <form onSubmit={handleAddFormSubmit}>
-        <div className="form-inner">
+        <div className="form-inner d-flex mb-2">
           <input 
+            className='form-control me-2'
             type="text" 
             name="name" 
             required="required" 
             placeholder="Enter a name..."
             onChange={handleChange}
             />
-          <select name="age" id="age-select" onChange={handleChange} required>
+          <select className='form-select' name="age" id="age-select" onChange={handleChange} required>
             <option value="">Age</option>
             {selectAge().map((age, index) => (
               <option value={age} key={index}>{age}</option>
               ))}
           </select>
           <input 
+            className='form-control me-2'
             type="text" 
             name="nickname" 
             required="required" 
             placeholder="Enter a nickname..."
             onChange={handleChange}
           />
-          <button type="submit">Save</button>
-          <button type="reset">Cancel</button>
+          <button className='btn btn-primary me-2' type="submit">Save</button>
+          <button className='btn btn-danger' type="reset">Cancel</button>
         </div>
         <div className="form-outer">
-          <button type="submit">Add</button>
+          <button className='btn btn-primary' type="submit">Add</button>
         </div>
       </form>
     </div>
